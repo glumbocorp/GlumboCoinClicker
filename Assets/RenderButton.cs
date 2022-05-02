@@ -16,9 +16,18 @@ public class RenderButton : PhoneElement
     [SerializeField] Sprite hoverSprite;
     [SerializeField] Sprite pressedSprite;
     [SerializeField] Sprite releasedSprite;
+    [SerializeField] Color defaultColor = Color.white;
+    [SerializeField] Color hoverColor = Color.white;
+    [SerializeField] Color pressedColor = Color.white;
+    [SerializeField] Color releasedColor = Color.white;
     [SerializeField] InteractorBase interactor;
     [SerializeField] float cooldownTime;//time it takes to reset to default after released
     PhoneClick phoneclick;
+    Color currentColor;
+    protected Color lerpColor;
+    Color targetColor;
+    [SerializeField] float colorTime = 0.2f;
+    float currentColorTime;
     protected float currentTime;
     private void Start()
     {
@@ -37,6 +46,21 @@ public class RenderButton : PhoneElement
                 EndCooldown();
             }
         }
+        if (currentColorTime > 0)
+        {
+            currentColorTime -= Time.deltaTime;
+            if(currentColorTime <= 0)
+            {
+                currentColorTime = 0f;
+            }
+            thisRend.color = Color.Lerp(targetColor, currentColor,currentColorTime/colorTime);
+        }
+    }
+    public virtual void SetColor(Color col)
+    {
+        currentColor = thisRend.color;
+        currentColorTime = colorTime;
+        targetColor = col;
     }
     public override void OnHover()
     {
@@ -61,8 +85,11 @@ public class RenderButton : PhoneElement
     }
     public override void Press()//only trigger when released after hovering
     {
-        interactor.Trigger();
-        StartCooldown();
+        if (currentTime == 0f)
+        {
+            interactor.Trigger();
+            StartCooldown();
+        }
     }
     public virtual void StartCooldown()
     {
@@ -71,7 +98,6 @@ public class RenderButton : PhoneElement
     }
     public virtual void EndCooldown()
     {
-        
         if(phoneclick.currentHover == gameObject)
         {
             SetSprite(buttonStates.HOVER);
@@ -87,14 +113,14 @@ public class RenderButton : PhoneElement
         switch (state)
         {
             case buttonStates.HOVER:
-                thisRend.sprite = hoverSprite; break;
+                thisRend.sprite = hoverSprite; SetColor(hoverColor); break;
             case buttonStates.PRESSED:
-                thisRend.sprite = pressedSprite; break;
+                thisRend.sprite = pressedSprite; SetColor(pressedColor); break;
             case buttonStates.RELEASED:
-                thisRend.sprite = releasedSprite; break;
+                thisRend.sprite = releasedSprite; SetColor(releasedColor); break;
             case buttonStates.DEFAULT:
             default:
-                thisRend.sprite = defaultSprite; break;
+                thisRend.sprite = defaultSprite; SetColor(defaultColor); break;
         }
     }
 }
