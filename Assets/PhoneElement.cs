@@ -4,16 +4,9 @@ using UnityEngine;
 
 public class PhoneElement : MonoBehaviour
 {
-    public virtual void OnHover()
-    {
-    }
-    public virtual void Press()//only trigger when released after hovering
-    {
-    }
-    public virtual void StopHover()
-    {
-    }
-    public virtual void OnHold()
-    {
-    }
+    public virtual void OnHover(){}
+    public virtual void Press(){}//only trigger when released after hovering
+    public virtual void StopHover(){}
+    public virtual void OnHold(){}
+    public virtual void OnDrag(Vector2 relativeOffset){}
 }

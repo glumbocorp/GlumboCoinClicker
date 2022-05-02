@@ -12,7 +12,8 @@ public class PhoneClick : MonoBehaviour
     GameObject hovering;
     public GameObject currentHover => hovering;
     PhoneElement hoveringElement;
-
+    Vector2 relativeOffset = Vector2.zero;
+    Vector2 lastDisplayPos = Vector2.zero;
     bool holding = false;
     public void OnMouseUp()
     {
@@ -21,15 +22,18 @@ public class PhoneClick : MonoBehaviour
             MouseFullPress();
         }
         holding = false;
+        relativeOffset = Vector2.zero;
     }
-    public void OnMouseDown()
+    public void MouseStartDown(Vector3 worldHit)
     {
         if (hovering != null)
         {
             holding = true;
             if(hoveringElement != null)
             {
+                relativeOffset = Vector2.zero;
                 hoveringElement.OnHold();
+                lastDisplayPos = GetDisplayPos(worldHit) ;
             }
         }
     }
@@ -49,10 +53,13 @@ public class PhoneClick : MonoBehaviour
 
     }
 
+    Vector2 GetRelativePhone(Vector3 worldHit){
+        return new Vector2((worldHit.x - topLeft.position.x) / (botRight.position.x - topLeft.position.x), (worldHit.y - botRight.position.y) / (topLeft.position.y - botRight.position.y));
+    }
+
     Vector3 GetDisplayPos(Vector3 worldHit)
     {
-        Vector2 pos = new Vector2((worldHit.x - topLeft.position.x) / (botRight.position.x - topLeft.position.x), (worldHit.y - botRight.position.y) / (topLeft.position.y - botRight.position.y));
-        return convertToDisplay(pos);
+        return convertToDisplay(GetRelativePhone(worldHit));
     }
     public void MouseHover(Vector3 worldHit)
     {
@@ -75,7 +82,12 @@ public class PhoneClick : MonoBehaviour
                 hoveringElement = hovering.GetComponent<PhoneElement>();
                 hoveringElement.OnHover();
             }
-            
+            if(holding){
+                Vector2 thisPos = (Vector2)GetDisplayPos(worldHit);
+                relativeOffset = thisPos - lastDisplayPos;
+                lastDisplayPos = thisPos;
+                hoveringElement.OnDrag(relativeOffset);
+            }
         }
         else
         {

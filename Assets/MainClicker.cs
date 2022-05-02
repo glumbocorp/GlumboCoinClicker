@@ -29,6 +29,9 @@ public class MainClicker : MonoBehaviour
                     case "Glumbocoin":
                         coin.Spin();
                         break;
+                    case "Phone":
+                        phone.MouseStartDown(hitRay.point);
+                        break;
                     default: break;
                 }
             }
