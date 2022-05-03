@@ -6,7 +6,7 @@ public class phoneScroll : PhoneElement
 {
     [SerializeField] Vector2 inputMultiplier;
     Vector2 targetOffset = Vector2.zero;
-    Vector2 currentOffset = Vector2.zero;
+    [SerializeField] Vector2 currentOffset = Vector2.zero;
     [SerializeField] Transform imageContainer;
 
     void Start(){
