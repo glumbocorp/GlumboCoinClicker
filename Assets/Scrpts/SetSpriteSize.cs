@@ -18,15 +18,15 @@ public class SetSpriteSize : MonoBehaviour
     public void SetSprite(Sprite spr)
     {
         rend.sprite = spr;
-        
+        ScaleSprite();
     }
     public void ScaleSprite()
     {
         transform.localScale = size / rend.sprite.bounds.size;
-        transform.localPosition = new Vector3(0f, -rend.sprite.bounds.size.y / 2, 0f);
+        transform.localPosition = new Vector3(0f, -size.y / 2, 0f);
         if (comment != null)
         {
-            comment.localPosition = new  Vector3(0f, -rend.sprite.bounds.size.y - 0.1f, 0f);
+            comment.localPosition = new Vector3(0f, -size.y - distanceToComment, 0f);
         }
     }
 }
