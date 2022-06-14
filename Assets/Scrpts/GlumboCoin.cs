@@ -10,6 +10,7 @@ public class GlumboCoin : MonoBehaviour
     [SerializeField]float lerpSpd = 0.1f;
     [SerializeField] ParticleSystem particle;
     [SerializeField] Main main;
+    [SerializeField] GameObject numberPopup;
     float currentSpd = 0f;
     float rot = 0f;
     int maxGenerated = 1;
@@ -23,6 +24,8 @@ public class GlumboCoin : MonoBehaviour
         int coinsGenerated = Random.Range(1, maxGenerated+1);
         particle.emission.SetBurst(0, new ParticleSystem.Burst(0f, coinsGenerated));
         main.AddRemoveCoins(coinsGenerated);
+        Instantiate(numberPopup, transform.position, Quaternion.identity).GetComponent<numberPopup>().SetNumValue(coinsGenerated.ToString());
+
     }
     private void UpdateTransform(){
         transform.localRotation = Quaternion.Euler(0f,rot,0f);

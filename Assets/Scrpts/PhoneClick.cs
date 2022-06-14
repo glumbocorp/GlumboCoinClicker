@@ -9,21 +9,13 @@ public class PhoneClick : MonoBehaviour
     [SerializeField] Camera phoneCam;
     [SerializeField] Transform displayTopRight;
     [SerializeField] Transform displayBotLeft;
+    [SerializeField] float scrollSpeed;
     GameObject hovering;
     public GameObject currentHover => hovering;
     PhoneElement hoveringElement;
     Vector2 relativeOffset = Vector2.zero;
     Vector2 lastDisplayPos = Vector2.zero;
     bool holding = false;
-    public void OnMouseUp()
-    {
-        if(hovering!=null && holding)
-        {
-            MouseFullPress();
-        }
-        holding = false;
-        relativeOffset = Vector2.zero;
-    }
     public void MouseStartDown(Vector3 worldHit)
     {
         if (hovering != null)
@@ -88,6 +80,10 @@ public class PhoneClick : MonoBehaviour
                 lastDisplayPos = thisPos;
                 hoveringElement.OnDrag(relativeOffset);
             }
+            if (hovering != null)
+            {
+                hoveringElement.OnDrag(Input.mouseScrollDelta * scrollSpeed * -1f);
+            }
         }
         else
         {
@@ -114,5 +110,20 @@ public class PhoneClick : MonoBehaviour
         float w = displayTopRight.position.x - displayBotLeft.position.x;
         float h = displayTopRight.position.y - displayBotLeft.position.y;
         return basePos + new Vector3(inPos.x * w, inPos.y * h, 0f);
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonUp(0))//mouse release
+        {
+            if (hovering != null && holding)
+            {
+                MouseFullPress();
+            }
+            holding = false;
+            relativeOffset = Vector2.zero;
+            Debug.Log("releasing");
+            Debug.Log(holding);
+        }
     }
 }
