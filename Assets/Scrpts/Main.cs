@@ -15,8 +15,6 @@ public class Main : MonoBehaviour
     [SerializeField] [Range(0f, 1f)] float minUpdateAmountLesser;
     [SerializeField] [Range(0f, 1f)] float maxUpdateAmountLesser;
     [SerializeField] GraphRender graph;
-    [SerializeField] float regularUpdateInterval;
-    float regularUpdateTime = 0f;
     float currentUpdateTime = 0f;
     float currentJRusersPercent = 0f;
     float TotalJRusers = 0;
@@ -63,10 +61,22 @@ public class Main : MonoBehaviour
             float increaseAmountB = Random.Range(minUpdateAmountLesser, maxUpdateAmountLesser);//lesser
             if (Random.Range(0, 1f) > 0.6)
             {
-                TotalJRusers = Mathf.Max(TotalJRusers + Mathf.Round(Random.Range(-TotalJRusers * .6f - 1, TotalJRusers * 1.01f + 3)), 1);
-                if(TotalJRusers > 100000)
+                TotalJRusers = Mathf.Max(TotalJRusers + Mathf.Round(Random.Range( - 1, 5)), 1);
+                if(TotalJRusers > 100)
                 {
-                    TotalJRusers -= Mathf.Round(Random.Range(0.1f, 0.2f) * TotalJRusers);
+                    TotalJRusers -= Mathf.Round(Random.Range(-0.2f, 0.1f) * TotalJRusers);
+                }
+                else if (TotalJRusers > 500)
+                {
+                    TotalJRusers -= Mathf.Round(Random.Range(-0.1f, 0.2f) * TotalJRusers);
+                }
+                else if (TotalJRusers > 1000)
+                {
+                    TotalJRusers -= Mathf.Round(Random.Range(-0.2f, 0.3f) * TotalJRusers);
+                }
+                else if (TotalJRusers > 2000)
+                {
+                    TotalJRusers -= Mathf.Round(Random.Range(-0.3f, 0.4f) * TotalJRusers);
                 }
             }
             float currentActive = activeJRusers;
@@ -86,20 +96,11 @@ public class Main : MonoBehaviour
             currentJRusersPercent = Mathf.Round(activeJRusers / TotalJRusers * 100f) / 100f;
 
             JRinfo.text = "JR instances:"+activeJRusers.ToString()+"/"+TotalJRusers.ToString()+"\n"+(Mathf.Round(currentJRusersPercent*100f)).ToString()+"%";
-        }
-        else
-        {
-            currentUpdateTime -= Time.deltaTime;
-        }
-        
-        if(regularUpdateTime < 0f)
-        {
-            regularUpdateTime = regularUpdateInterval;
             graph.AddNew(activeJRusers, TotalJRusers);
         }
         else
         {
-            regularUpdateTime -= Time.deltaTime;
+            currentUpdateTime -= Time.deltaTime;
         }
     }
 }

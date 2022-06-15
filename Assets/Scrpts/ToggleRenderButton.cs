@@ -14,12 +14,6 @@ public class ToggleRenderButton : RenderButton
     [SerializeField] Color togglePressedColor = Color.white;
     [SerializeField] Color toggleReleasedColor = Color.white;
     [SerializeField] bool toggled = false;
-    public override void Press()
-    {
-        base.Press();
-        toggled = !toggled;
-
-    }
 
     public override void SetSprite(buttonStates state)
     {

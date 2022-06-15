@@ -22,9 +22,9 @@ public class RenderButton : PhoneElement
     [SerializeField] Color releasedColor = Color.white;
     [SerializeField] InteractorBase interactor;
     [SerializeField] float cooldownTime;//time it takes to reset to default after released
+    [SerializeField] bool forceUpdate = false;
     PhoneClick phoneclick;
     Color currentColor;
-    protected Color lerpColor;
     Color targetColor;
     [SerializeField] float colorTime = 0.2f;
     float currentColorTime;
@@ -35,6 +35,16 @@ public class RenderButton : PhoneElement
         SetSprite(buttonStates.DEFAULT);
         phoneclick = GameObject.Find("phone").GetComponent<PhoneClick>();
     }
+
+    public void ForceUpdate()
+    {
+        SetSprite(buttonStates.DEFAULT);
+        currentTime = 0f;
+        currentColorTime = 0f;
+        thisRend.color = targetColor;
+        currentColor = targetColor;
+    }
+
     private void Update()
     {
         if (currentTime > 0)
@@ -87,8 +97,9 @@ public class RenderButton : PhoneElement
     {
         if (currentTime == 0f)
         {
-            interactor.Trigger();
             StartCooldown();
+            if (forceUpdate) { ForceUpdate(); }
+            interactor.Trigger();
         }
     }
     public virtual void StartCooldown()

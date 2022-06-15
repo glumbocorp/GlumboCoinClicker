@@ -45,3 +45,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: New Layer 1
+    uniqueID: 188605681
+    locked: 0
+  - name: phone overlay
+    uniqueID: 1810050685
+    locked: 0

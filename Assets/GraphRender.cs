@@ -7,31 +7,46 @@ public class GraphRender : MonoBehaviour
     [SerializeField] LineRenderer line;
     List<float> mins;
     List<float> maxes;
-    [SerializeField] int numberOfPoints;
+    List<float> times;
+    [SerializeField] float maxTrackingTime;
 
     private void Awake()
     {
         mins = new List<float>();
         maxes = new List<float>();
+        times = new List<float>();
     }
-    public void AddNew(float min, float max)//current and total users
+    private void Update()
     {
-        mins.Add(min);
-        maxes.Add(max);
-        if (mins.Count> numberOfPoints)
+        for(int i = 0; i < times.Count; i++)
         {
-            mins.RemoveAt(0);
-            maxes.RemoveAt(0);
+            times[i] += Time.deltaTime;
+            if (times[i] > maxTrackingTime)
+            {
+                mins.RemoveAt(i);
+                maxes.RemoveAt(i);
+                times.RemoveAt(i);
+                i--;
+            }
+        }
+        Display();
+    }
+
+    private void Display()
+    {
+        if (mins.Count <= 0)
+        {
+            return;
         }
         float xstart = -.5f;
         float xend = .5f;
         float ystart = -.5f;
         float yend = .5f;
         Vector3[] points;
-        points = new Vector3[mins.Count];
-        for(int i = 0; i < mins.Count;i++)
+        points = new Vector3[mins.Count + 1];
+        for (int i = 0; i < mins.Count; i++)
         {
-            float x = Mathf.Lerp(xstart, xend, (float)i / (float)numberOfPoints);
+            float x = Mathf.Lerp(xstart, xend, times[i] / (float)maxTrackingTime);
             float y;
             if (mins[i] == 0f || maxes[i] == 0f)
             {
@@ -41,13 +56,29 @@ public class GraphRender : MonoBehaviour
             {
                 y = Mathf.Lerp(ystart, yend, mins[i] / maxes[i]); //this is just percentage not total actual
             }
-            
-            points[i] = transform.TransformPoint(new Vector3(x,y,-0.1f));
-            
+
+            points[i] = transform.TransformPoint(new Vector3(x, y, -0.1f));
+
         }
+        float firstY = 0f;
+        if (mins[mins.Count - 1] == 0f || maxes[mins.Count - 1] == 0f)
+        {
+            firstY = 0f;
+        }
+        else
+        {
+            firstY = Mathf.Lerp(ystart, yend, mins[mins.Count - 1] / maxes[mins.Count - 1]); //this is just percentage not total actual
+        }
+        points[mins.Count] = transform.TransformPoint(new Vector3(xstart, firstY, -0.1f));
+
         line.positionCount = mins.Count;
         line.SetPositions(points);
-        Debug.Log(mins.Count);
-        Debug.Log(line.positionCount);
+    }
+
+    public void AddNew(float min, float max)//current and total users
+    {
+        mins.Add(min);
+        maxes.Add(max);
+        times.Add(0f);
     }
 }
