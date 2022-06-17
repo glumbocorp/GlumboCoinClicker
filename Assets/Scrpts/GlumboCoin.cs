@@ -40,7 +40,7 @@ public class GlumboCoin : MonoBehaviour
     public void Spin(){
         currentSpd += accel;
         particle.Play();
-        int coinsGenerated = Random.Range(1, maxGenerated+1);
+        float coinsGenerated = Random.Range(1, maxGenerated+1);
         particle.emission.SetBurst(0, new ParticleSystem.Burst(0f, coinsGenerated));
         main.AddRemoveCoins(coinsGenerated);
         Instantiate(numberPopup, transform.position, Quaternion.identity).GetComponent<numberPopup>().SetNumValue(coinsGenerated.ToString());

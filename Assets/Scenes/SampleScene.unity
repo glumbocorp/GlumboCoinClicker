@@ -133,9 +133,9 @@ GameObject:
   m_Component:
   - component: {fileID: 93636075}
   - component: {fileID: 93636079}
-  - component: {fileID: 93636078}
   - component: {fileID: 93636077}
   - component: {fileID: 93636076}
+  - component: {fileID: 93636080}
   m_Layer: 0
   m_Name: app store icon
   m_TagString: RenderButton
@@ -185,40 +185,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   app: {fileID: 719198796}
   homeScreen: {fileID: 963194232}
---- !u!114 &93636078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93636074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ada86e3e0b9050439baed36f1f96a3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultSprite: {fileID: 21300000, guid: ca59c75f9990d9544bd27cc9ab449c83, type: 3}
-  hoverSprite: {fileID: 21300000, guid: ca59c75f9990d9544bd27cc9ab449c83, type: 3}
-  pressedSprite: {fileID: 21300000, guid: ca59c75f9990d9544bd27cc9ab449c83, type: 3}
-  releasedSprite: {fileID: 21300000, guid: ca59c75f9990d9544bd27cc9ab449c83, type: 3}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  hoverColor: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
-  pressedColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
-  releasedColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
-  interactor: {fileID: 93636077}
-  cooldownTime: 0.1
-  forceUpdate: 1
-  colorTime: 0.1
-  defaultSpriteToggled: {fileID: 21300000, guid: ca59c75f9990d9544bd27cc9ab449c83, type: 3}
-  hoverSpriteToggled: {fileID: 21300000, guid: ca59c75f9990d9544bd27cc9ab449c83, type: 3}
-  pressedSpriteToggled: {fileID: 21300000, guid: ca59c75f9990d9544bd27cc9ab449c83, type: 3}
-  releasedSpriteToggled: {fileID: 21300000, guid: ca59c75f9990d9544bd27cc9ab449c83, type: 3}
-  toggleInteractor: {fileID: 0}
-  toggleDefaultColor: {r: 1, g: 1, b: 1, a: 1}
-  toggleHoverColor: {r: 0.754717, g: 0.754717, b: 0.754717, a: 1}
-  togglePressedColor: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
-  toggleReleasedColor: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
-  toggled: 0
 --- !u!212 &93636079
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -271,6 +237,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &93636080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93636074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87194de56a50388489b2d76c9d1ee464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultSprite: {fileID: 21300000, guid: ca59c75f9990d9544bd27cc9ab449c83, type: 3}
+  hoverSprite: {fileID: 21300000, guid: ca59c75f9990d9544bd27cc9ab449c83, type: 3}
+  pressedSprite: {fileID: 21300000, guid: ca59c75f9990d9544bd27cc9ab449c83, type: 3}
+  releasedSprite: {fileID: 21300000, guid: ca59c75f9990d9544bd27cc9ab449c83, type: 3}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  hoverColor: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
+  pressedColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
+  releasedColor: {r: 1, g: 1, b: 1, a: 1}
+  interactor: {fileID: 93636077}
+  cooldownTime: 0
+  forceUpdate: 1
+  colorTime: 0.2
 --- !u!1 &113757021
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,6 +493,55 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &417863871
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 417863872}
+  - component: {fileID: 417863873}
+  m_Layer: 0
+  m_Name: Action
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &417863872
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417863871}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1236063256}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &417863873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417863871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d61455147cb91b440abf48933cce937c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  costToStart: 0
+  costPerSecond: 0
+  main: {fileID: 0}
+  progressPerSecond: 0
+  completeInteraction: {fileID: 0}
 --- !u!1 &420844836
 GameObject:
   m_ObjectHideFlags: 0
@@ -1424,9 +1463,9 @@ GameObject:
   m_Component:
   - component: {fileID: 819482202}
   - component: {fileID: 819482206}
-  - component: {fileID: 819482205}
   - component: {fileID: 819482204}
   - component: {fileID: 819482203}
+  - component: {fileID: 819482207}
   m_Layer: 0
   m_Name: JR app icon
   m_TagString: RenderButton
@@ -1476,40 +1515,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.65, y: 1.63, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &819482205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819482201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ada86e3e0b9050439baed36f1f96a3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultSprite: {fileID: 21300000, guid: c9a61de6d273c244ea159369aae586d8, type: 3}
-  hoverSprite: {fileID: 21300000, guid: c9a61de6d273c244ea159369aae586d8, type: 3}
-  pressedSprite: {fileID: 21300000, guid: c9a61de6d273c244ea159369aae586d8, type: 3}
-  releasedSprite: {fileID: 21300000, guid: c9a61de6d273c244ea159369aae586d8, type: 3}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  hoverColor: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
-  pressedColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
-  releasedColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
-  interactor: {fileID: 819482203}
-  cooldownTime: 0.1
-  forceUpdate: 1
-  colorTime: 0.1
-  defaultSpriteToggled: {fileID: 21300000, guid: c9a61de6d273c244ea159369aae586d8, type: 3}
-  hoverSpriteToggled: {fileID: 21300000, guid: c9a61de6d273c244ea159369aae586d8, type: 3}
-  pressedSpriteToggled: {fileID: 21300000, guid: c9a61de6d273c244ea159369aae586d8, type: 3}
-  releasedSpriteToggled: {fileID: 21300000, guid: c9a61de6d273c244ea159369aae586d8, type: 3}
-  toggleInteractor: {fileID: 0}
-  toggleDefaultColor: {r: 1, g: 1, b: 1, a: 1}
-  toggleHoverColor: {r: 0.754717, g: 0.754717, b: 0.754717, a: 1}
-  togglePressedColor: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
-  toggleReleasedColor: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
-  toggled: 0
 --- !u!212 &819482206
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1562,6 +1567,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &819482207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819482201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87194de56a50388489b2d76c9d1ee464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultSprite: {fileID: 21300000, guid: c9a61de6d273c244ea159369aae586d8, type: 3}
+  hoverSprite: {fileID: 21300000, guid: c9a61de6d273c244ea159369aae586d8, type: 3}
+  pressedSprite: {fileID: 21300000, guid: c9a61de6d273c244ea159369aae586d8, type: 3}
+  releasedSprite: {fileID: 21300000, guid: c9a61de6d273c244ea159369aae586d8, type: 3}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  hoverColor: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
+  pressedColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
+  releasedColor: {r: 1, g: 1, b: 1, a: 1}
+  interactor: {fileID: 819482203}
+  cooldownTime: 0
+  forceUpdate: 1
+  colorTime: 0.2
 --- !u!1 &859680383
 GameObject:
   m_ObjectHideFlags: 0
@@ -7057,6 +7086,38 @@ MonoBehaviour:
   bounceSpeed: 0.6
   bounceStr: 2
   moveSmoothTime: 0.2
+--- !u!1 &1236063255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1236063256}
+  m_Layer: 0
+  m_Name: Actions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1236063256
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236063255}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1953996, y: 8.0265665, z: -0.021968858}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 417863872}
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1286227834
 GameObject:
   m_ObjectHideFlags: 0
@@ -7992,9 +8053,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1754830951}
   - component: {fileID: 1754830955}
-  - component: {fileID: 1754830954}
   - component: {fileID: 1754830953}
   - component: {fileID: 1754830952}
+  - component: {fileID: 1754830956}
   m_Layer: 0
   m_Name: home button
   m_TagString: RenderButton
@@ -8044,40 +8105,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.04, y: 1.04, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1754830954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1754830950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ada86e3e0b9050439baed36f1f96a3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultSprite: {fileID: 21300000, guid: 943e2985c0960124bb459b36c281d2c0, type: 3}
-  hoverSprite: {fileID: 21300000, guid: 943e2985c0960124bb459b36c281d2c0, type: 3}
-  pressedSprite: {fileID: 21300000, guid: 943e2985c0960124bb459b36c281d2c0, type: 3}
-  releasedSprite: {fileID: 21300000, guid: 943e2985c0960124bb459b36c281d2c0, type: 3}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  hoverColor: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
-  pressedColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
-  releasedColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
-  interactor: {fileID: 1754830952}
-  cooldownTime: 0.1
-  forceUpdate: 0
-  colorTime: 0.1
-  defaultSpriteToggled: {fileID: 21300000, guid: 943e2985c0960124bb459b36c281d2c0, type: 3}
-  hoverSpriteToggled: {fileID: 21300000, guid: 943e2985c0960124bb459b36c281d2c0, type: 3}
-  pressedSpriteToggled: {fileID: 21300000, guid: 943e2985c0960124bb459b36c281d2c0, type: 3}
-  releasedSpriteToggled: {fileID: 21300000, guid: 943e2985c0960124bb459b36c281d2c0, type: 3}
-  toggleInteractor: {fileID: 0}
-  toggleDefaultColor: {r: 1, g: 1, b: 1, a: 1}
-  toggleHoverColor: {r: 0.754717, g: 0.754717, b: 0.754717, a: 1}
-  togglePressedColor: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
-  toggleReleasedColor: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
-  toggled: 0
 --- !u!212 &1754830955
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8130,6 +8157,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1754830956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754830950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87194de56a50388489b2d76c9d1ee464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultSprite: {fileID: 21300000, guid: 943e2985c0960124bb459b36c281d2c0, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 943e2985c0960124bb459b36c281d2c0, type: 3}
+  pressedSprite: {fileID: 21300000, guid: 943e2985c0960124bb459b36c281d2c0, type: 3}
+  releasedSprite: {fileID: 21300000, guid: 943e2985c0960124bb459b36c281d2c0, type: 3}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  hoverColor: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
+  pressedColor: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}
+  releasedColor: {r: 1, g: 1, b: 1, a: 1}
+  interactor: {fileID: 1754830952}
+  cooldownTime: 0
+  forceUpdate: 0
+  colorTime: 0.2
 --- !u!1 &1965482829
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,7 @@ public class ToggleRenderButton : RenderButton
 
     public override void SetSprite(buttonStates state)
     {
+        
         if (!toggled)
         {
             base.SetSprite(state);
@@ -39,4 +40,17 @@ public class ToggleRenderButton : RenderButton
         
     }
 
+    public override void Press()
+    {
+        toggled = !toggled;
+        if (!toggled)
+        {
+            base.Press();
+        }
+        else
+        {
+            toggleInteractor.Trigger();
+        }
+        
+    }
 }

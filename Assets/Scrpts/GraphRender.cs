@@ -43,7 +43,7 @@ public class GraphRender : MonoBehaviour
         float ystart = -.5f;
         float yend = .5f;
         Vector3[] points;
-        points = new Vector3[mins.Count + 1];
+        points = new Vector3[mins.Count];
         for (int i = 0; i < mins.Count; i++)
         {
             float x = Mathf.Lerp(xstart, xend, times[i] / (float)maxTrackingTime);
@@ -69,10 +69,14 @@ public class GraphRender : MonoBehaviour
         {
             firstY = Mathf.Lerp(ystart, yend, mins[mins.Count - 1] / maxes[mins.Count - 1]); //this is just percentage not total actual
         }
-        points[mins.Count] = transform.TransformPoint(new Vector3(xstart, firstY, -0.1f));
+        if (points.Length > 0)
+        {
+            points[mins.Count-1] = transform.TransformPoint(new Vector3(xstart, firstY, -0.1f));
 
-        line.positionCount = mins.Count;
-        line.SetPositions(points);
+            line.positionCount = mins.Count;
+            line.SetPositions(points);
+        }
+        
     }
 
     public void AddNew(float min, float max)//current and total users

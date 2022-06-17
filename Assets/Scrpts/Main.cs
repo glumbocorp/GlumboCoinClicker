@@ -19,29 +19,33 @@ public class Main : MonoBehaviour
     float currentJRusersPercent = 0f;
     float TotalJRusers = 0;
     float activeJRusers = 1;
-    double glumbocoins = 0;
-    public double Coins => glumbocoins;
+    float glumbocoins = 0;
+    public float Coins => glumbocoins;
     private void Start()
     {
         UpdateAmt();
     }
-    public bool CanAfford(int amount)
+    public bool AddRemoveCoins(float amount)
     {
-        return amount > glumbocoins;
-    }
-    public bool PurchaseAmount(int amount)
-    {
-        if (CanAfford(amount))
+        if(glumbocoins + amount > 0)
         {
-            AddRemoveCoins(amount);
+            glumbocoins += amount;
+            UpdateAmt();
             return true;
         }
         return false;
     }
-    public void AddRemoveCoins(int amount)
+    public void changeTotalUsers(float relativeUsers)
     {
-        glumbocoins += amount;
-        UpdateAmt();
+        TotalJRusers += relativeUsers;
+        if (TotalJRusers < 0f)
+        {
+            TotalJRusers = 0f;
+        }
+        if (activeJRusers < TotalJRusers)
+        {
+            activeJRusers = TotalJRusers;
+        }
     }
 
     public void UpdateAmt()
@@ -59,7 +63,7 @@ public class Main : MonoBehaviour
             currentUpdateTime = Random.Range(minUpdateTime, maxUpdateTime);
             float increaseAmountA = Random.Range(minUpdateAmount, maxUpdateAmount);//greater
             float increaseAmountB = Random.Range(minUpdateAmountLesser, maxUpdateAmountLesser);//lesser
-            if (Random.Range(0, 1f) > 0.6)
+            /*if (Random.Range(0, 1f) > 0.6)
             {
                 TotalJRusers = Mathf.Max(TotalJRusers + Mathf.Round(Random.Range( - 1, 5)), 1);
                 if(TotalJRusers > 100)
@@ -79,6 +83,7 @@ public class Main : MonoBehaviour
                     TotalJRusers -= Mathf.Round(Random.Range(-0.3f, 0.4f) * TotalJRusers);
                 }
             }
+            */
             float currentActive = activeJRusers;
             float currentInact = TotalJRusers - activeJRusers;
             currentJRusersPercent = Mathf.Round(activeJRusers/TotalJRusers * 100f) / 100f;
