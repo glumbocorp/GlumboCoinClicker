@@ -32,6 +32,9 @@ public class MainClicker : MonoBehaviour
                     case "Phone":
                         phone.MouseStartDown(hitRay.point);
                         break;
+                    case "Action":
+                        hitRay.collider.GetComponent<Action>().StartAction();
+                        break;
                     default: break;
                 }
             }

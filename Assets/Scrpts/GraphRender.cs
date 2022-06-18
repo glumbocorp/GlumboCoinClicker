@@ -50,7 +50,7 @@ public class GraphRender : MonoBehaviour
             float y;
             if (mins[i] == 0f || maxes[i] == 0f)
             {
-                y = 0f;
+                y = ystart;
             }
             else
             {
@@ -63,7 +63,7 @@ public class GraphRender : MonoBehaviour
         float firstY = 0f;
         if (mins[mins.Count - 1] == 0f || maxes[mins.Count - 1] == 0f)
         {
-            firstY = 0f;
+            firstY = ystart;
         }
         else
         {

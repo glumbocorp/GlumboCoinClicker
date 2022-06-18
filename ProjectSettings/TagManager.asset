@@ -8,11 +8,12 @@ TagManager:
   - Phone
   - RenderButton
   - Scroll
+  - Action
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Action
   - Water
   - UI
   - popupNumber

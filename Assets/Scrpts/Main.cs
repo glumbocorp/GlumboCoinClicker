@@ -17,7 +17,7 @@ public class Main : MonoBehaviour
     [SerializeField] GraphRender graph;
     float currentUpdateTime = 0f;
     float currentJRusersPercent = 0f;
-    float TotalJRusers = 0;
+    float TotalJRusers = 500;
     float activeJRusers = 1;
     float glumbocoins = 0;
     public float Coins => glumbocoins;
@@ -27,7 +27,7 @@ public class Main : MonoBehaviour
     }
     public bool AddRemoveCoins(float amount)
     {
-        if(glumbocoins + amount > 0)
+        if(glumbocoins + amount >= 0)
         {
             glumbocoins += amount;
             UpdateAmt();
@@ -63,6 +63,9 @@ public class Main : MonoBehaviour
             currentUpdateTime = Random.Range(minUpdateTime, maxUpdateTime);
             float increaseAmountA = Random.Range(minUpdateAmount, maxUpdateAmount);//greater
             float increaseAmountB = Random.Range(minUpdateAmountLesser, maxUpdateAmountLesser);//lesser
+
+
+
             /*if (Random.Range(0, 1f) > 0.6)
             {
                 TotalJRusers = Mathf.Max(TotalJRusers + Mathf.Round(Random.Range( - 1, 5)), 1);
@@ -87,7 +90,21 @@ public class Main : MonoBehaviour
             float currentActive = activeJRusers;
             float currentInact = TotalJRusers - activeJRusers;
             currentJRusersPercent = Mathf.Round(activeJRusers/TotalJRusers * 100f) / 100f;
-            if (currentJRusersPercent < 0.5f)//not enough, download
+
+            if (currentJRusersPercent < 0.2)
+            {
+                activeJRusers += Mathf.Round(Random.Range(-TotalJRusers / 50f, TotalJRusers / 10f));
+            }
+            else if (currentJRusersPercent > .8)
+            {
+                activeJRusers += Mathf.Round(Random.Range(-TotalJRusers / 10f, TotalJRusers / 50f));
+            }
+            else
+            {
+                activeJRusers += Mathf.Round(Random.Range(-TotalJRusers / 20f, TotalJRusers / 20f));
+            }
+            /*
+            if (currentJRusersPercent <= 0.5f)//not enough, download
             {
                 activeJRusers += Mathf.Round(currentInact * increaseAmountA);
                 activeJRusers -= Mathf.Round(currentActive * increaseAmountB);
@@ -96,7 +113,8 @@ public class Main : MonoBehaviour
             {
                 activeJRusers += Mathf.Round(currentInact * increaseAmountB);
                 activeJRusers -= Mathf.Round(currentActive * increaseAmountA);
-            }
+            }*/
+            
             activeJRusers = Mathf.Clamp(activeJRusers, 0f, TotalJRusers);
             currentJRusersPercent = Mathf.Round(activeJRusers / TotalJRusers * 100f) / 100f;
 

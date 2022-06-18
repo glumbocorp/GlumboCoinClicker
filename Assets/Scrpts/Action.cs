@@ -11,12 +11,15 @@ public class Action : MonoBehaviour
     [SerializeField] Main main;
     [SerializeField] float progressPerSecond;
     [SerializeField] InteractorBase completeInteraction;
+    [SerializeField] bool repeat;
+    Renderer rend;
     bool running;
     float progress;
     private void Start()
     {
         running = false;
         progress = 0f;
+        rend = GetComponent<Renderer>();
     }
     private void Update()
     {
@@ -24,6 +27,7 @@ public class Action : MonoBehaviour
         {
             if (main.AddRemoveCoins(costPerSecond)) {
                 AdvanceBar();
+                rend.material.SetFloat("progress", progress);
             }
         }
     }
@@ -40,15 +44,23 @@ public class Action : MonoBehaviour
     void Complete()
     {
         completeInteraction.Trigger();
-    }
-
-    void StartAction()
-    {
-        if (main.AddRemoveCoins(costToStart))
+        progress = 0f;
+        rend.material.SetFloat("progress", progress);
+        running = false;
+        if (repeat)
         {
-            running = true;
-            progress = 0f;
+            StartAction();
         }
     }
 
+    public void StartAction()
+    {
+        if (main.AddRemoveCoins(costToStart)&&!running)
+        {
+            running = true;
+            progress = 0f;
+            Debug.Log("floopy");
+        }
+        Debug.Log("flart");
+    }
 }
