@@ -17,6 +17,7 @@ public class numberPopup : MonoBehaviour
     [SerializeField]AnimationCurve sizeOverTime;
     [SerializeField] Color startColor;
     [SerializeField] Color endColor;
+    [SerializeField] bool hasColor = true;
     float time = 0f;
     float xSpd; float ySpd;
     float xVel; float yVel;
@@ -48,9 +49,24 @@ public class numberPopup : MonoBehaviour
         float scale = sizeOverTime.Evaluate(time / lifetime);
         text.transform.localScale = new Vector3(scale, scale, scale);
     }
-    public void SetNumValue(string number)
+    public void SetNumValue(float number)
     {
-        text.text = "+"+number;
+        if(number >= 0)
+        {
+            text.text = "+" + number;
+            if (hasColor)
+            {
+                text.color = Color.green;
+            }
+        }
+        else
+        {
+            if (hasColor)
+            {
+                text.color = Color.red;
+            }
+        }
+        
         text.ForceMeshUpdate();
     }
 }

@@ -8,6 +8,8 @@ public class MainClicker : MonoBehaviour
     [SerializeField] Camera mainCam;
     [SerializeField] GlumboCoin coin;
     [SerializeField] PhoneClick phone;
+    [SerializeField] Tooltip tooltip;
+    GameObject hoveringAction;
     void Start()
     {
         
@@ -54,8 +56,26 @@ public class MainClicker : MonoBehaviour
                     case "Phone":
                         phone.MouseHover(hitRay.point);
                         break;
+                    case "Action":
+                        if (hoveringAction == null || hoveringAction != hitRay.collider.gameObject)
+                        {
+                            hoveringAction = hitRay.collider.gameObject;
+                            tooltip.Active(true);
+                            tooltip.SetText(hitRay.collider.gameObject.GetComponent<Action>().GetText());
+                            tooltip.transform.position = hitRay.point;
+                        }
+                        else
+                        {
+                            tooltip.transform.position = hitRay.point;
+                        }
+                        break;
                     default: break;
                 }
+            }
+            if (hitRay.collider == null || hitRay.collider.tag != "Action")
+            {
+                tooltip.Active(false);
+                hoveringAction = null;
             }
         }
     }

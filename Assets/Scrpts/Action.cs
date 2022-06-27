@@ -12,6 +12,7 @@ public class Action : MonoBehaviour
     [SerializeField] float progressPerSecond;
     [SerializeField] InteractorBase completeInteraction;
     [SerializeField] bool repeat;
+    [SerializeField] string text;
     Renderer rend;
     bool running;
     float progress;
@@ -20,6 +21,11 @@ public class Action : MonoBehaviour
         running = false;
         progress = 0f;
         rend = GetComponent<Renderer>();
+        rend.material.SetFloat("progress", progress);
+    }
+    public string GetText()
+    {
+        return text;
     }
     private void Update()
     {

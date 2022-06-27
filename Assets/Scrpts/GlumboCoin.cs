@@ -43,7 +43,7 @@ public class GlumboCoin : MonoBehaviour
         float coinsGenerated = Random.Range(1, maxGenerated+1);
         particle.emission.SetBurst(0, new ParticleSystem.Burst(0f, coinsGenerated));
         main.AddRemoveCoins(coinsGenerated);
-        Instantiate(numberPopup, transform.position, Quaternion.identity).GetComponent<numberPopup>().SetNumValue(coinsGenerated.ToString());
+        Instantiate(numberPopup, transform.position, Quaternion.identity).GetComponent<numberPopup>().SetNumValue(coinsGenerated);
 
         bounceSmooth = new Smoothing(0f, bounceLength, Smoothing.smoothingTypes.InFastOutSlow);
         

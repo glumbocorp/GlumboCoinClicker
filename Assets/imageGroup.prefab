@@ -354,10 +354,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9165373974858497801}
   - component: {fileID: 9165373974858497806}
-  - component: {fileID: -5832170876418582654}
-  - component: {fileID: -5171780662508169865}
-  - component: {fileID: 3844523034989690139}
-  - component: {fileID: -520880250538059294}
   m_Layer: 0
   m_Name: imageGroup
   m_TagString: Untagged
@@ -399,64 +395,3 @@ MonoBehaviour:
   bottomTransform: {fileID: 9165373974526818747}
   textRect: {fileID: 9165373973475311445}
   bottomPadding: 0.5
---- !u!114 &-5832170876418582654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9165373974858497800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d61455147cb91b440abf48933cce937c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  costToStart: 0
-  costPerSecond: 0
-  main: {fileID: 0}
-  progressPerSecond: 0
-  completeInteraction: {fileID: 0}
---- !u!114 &-5171780662508169865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9165373974858497800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55e04e7631d41054da9fa0c528fb624f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apps: []
-  homeScreen: {fileID: 0}
---- !u!114 &3844523034989690139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9165373974858497800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ea9e4c76912c08458643c0807f82585, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  line: {fileID: 0}
-  maxTrackingTime: 0
---- !u!114 &-520880250538059294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9165373974858497800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b222dbb02456bf8408aafeb4a7c625b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 0}
-  bottomTransform: {fileID: 0}
-  textRect: {fileID: 0}
-  bottomPadding: 0

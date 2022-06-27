@@ -15,18 +15,33 @@ public class Main : MonoBehaviour
     [SerializeField] [Range(0f, 1f)] float minUpdateAmountLesser;
     [SerializeField] [Range(0f, 1f)] float maxUpdateAmountLesser;
     [SerializeField] GraphRender graph;
+    [SerializeField] GameObject numberPopup;
+    [SerializeField] Transform passiveGenerationTarget;
+    bool generationEnabled = false;
     float currentUpdateTime = 0f;
     float currentJRusersPercent = 0f;
     float TotalJRusers = 500;
     float activeJRusers = 1;
     float glumbocoins = 0;
+    [SerializeField] float defaultGenerationTime = 5f;
+    float genTime = 0f;
     public float Coins => glumbocoins;
+    public void SetJRApp(bool enabled)
+    {
+        generationEnabled = enabled;
+    }
     private void Start()
     {
         UpdateAmt();
     }
-    public bool AddRemoveCoins(float amount)
+    public bool AddRemoveCoins(float amount, bool force = false)
     {
+        if (force)
+        {
+            glumbocoins += amount;
+            return true;
+        }
+
         if(glumbocoins + amount >= 0)
         {
             glumbocoins += amount;
@@ -55,9 +70,42 @@ public class Main : MonoBehaviour
         coinAmtB.text = "Glumbocoins: " + glumbocoins.ToString();
     }
 
+    void GenerateGlumbo()
+    {
+        if (generationEnabled)
+        {
+            float coinsGenerated = 0f;
+            if (activeJRusers < TotalJRusers / 2)//gain
+            {
+                coinsGenerated = Random.Range(0f, (TotalJRusers - activeJRusers)*.1f);
+                coinsGenerated = Mathf.Round(coinsGenerated * 10f) / 10f;
+                AddRemoveCoins(coinsGenerated, true);
+            }
+            else//lose
+            {
+                coinsGenerated = -1f*Random.Range(0f, activeJRusers*.1f);
+                coinsGenerated = Mathf.Round(coinsGenerated * 10f) / 10f;
+                AddRemoveCoins(coinsGenerated, true);
+            }
+            
+            Instantiate(numberPopup, passiveGenerationTarget.position, Quaternion.identity).GetComponent<numberPopup>().SetNumValue(coinsGenerated);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (genTime <= 0)
+        {
+            //gen
+            GenerateGlumbo();
+            genTime = defaultGenerationTime;
+        }
+        else
+        {
+            genTime -= Time.deltaTime;
+        }
+
         if(currentUpdateTime <= 0)
         {
             currentUpdateTime = Random.Range(minUpdateTime, maxUpdateTime);
