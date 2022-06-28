@@ -8,6 +8,8 @@ public class Action : MonoBehaviour
 
     [SerializeField] float costToStart;
     [SerializeField] float costPerSecond;
+    [SerializeField] AssetInfo[] assetStartCost;
+    [SerializeField] AssetInfo[] assetCostPerSecond;
     [SerializeField] Main main;
     [SerializeField] float progressPerSecond;
     [SerializeField] InteractorBase completeInteraction;
@@ -31,7 +33,13 @@ public class Action : MonoBehaviour
     {
         if (running)
         {
-            if (main.AddRemoveCoins(costPerSecond)) {
+            AssetInfo[] perSec = assetCostPerSecond;
+            for(int i = 0; i < perSec.Length; i++)
+            {
+                perSec[i].baseAmt *= Time.deltaTime;
+                perSec[i].randomExtra *= Time.deltaTime;
+            }
+            if (main.AddRemoveMaterialsAndAssets(perSec, costPerSecond * Time.deltaTime)) {
                 AdvanceBar();
                 rend.material.SetFloat("progress", progress);
             }
@@ -61,7 +69,7 @@ public class Action : MonoBehaviour
 
     public void StartAction()
     {
-        if (main.AddRemoveCoins(costToStart)&&!running)
+        if (main.AddRemoveMaterialsAndAssets(assetStartCost, costToStart)&&!running)
         {
             running = true;
             progress = 0f;

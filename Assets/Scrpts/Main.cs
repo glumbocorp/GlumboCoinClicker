@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Main : MonoBehaviour
 {
+    public static Main staticMain;
     [SerializeField] TMPro.TextMeshProUGUI coinAmt;
     [SerializeField] TMPro.TextMeshProUGUI coinAmtR;
     [SerializeField] TMPro.TextMeshProUGUI coinAmtB;
@@ -25,6 +26,26 @@ public class Main : MonoBehaviour
     float glumbocoins = 0;
     [SerializeField] float defaultGenerationTime = 5f;
     float genTime = 0f;
+
+    private void Awake()
+    {
+        if (staticMain != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            staticMain = this;
+        }
+    }
+
+    public enum Assets
+    {
+        good,
+        evil,
+        //other stuff, idk
+    }
+    float[] assets;
     public float Coins => glumbocoins;
     public void SetJRApp(bool enabled)
     {
@@ -33,7 +54,65 @@ public class Main : MonoBehaviour
     private void Start()
     {
         UpdateAmt();
+        assets = new float[System.Enum.GetNames(typeof(Assets)).Length];
+        for(int i = 0; i < assets.Length; i++)
+        {
+            assets[i] = 0;
+        }
     }
+
+    public bool AddRemoveMaterialsAndAssets(AssetInfo[] inputAssets, float amount)
+    {
+        float[] tochange = new float[inputAssets.Length];
+        for (int i = 0; i < inputAssets.Length; i++)
+        {
+            float amt = inputAssets[i].baseAmt + Random.Range(0f, inputAssets[i].randomExtra);
+            if (assets[(int)inputAssets[i].asset] + amt > 0)
+            {
+                tochange[i] = amt;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        if (glumbocoins + amount >= 0)
+        {
+            glumbocoins += amount;
+            UpdateAmt();
+            for (int i = 0; i < inputAssets.Length; i++)
+            {
+                assets[(int)inputAssets[i].asset] += tochange[i];
+            }
+            return true;
+        }
+        return false;
+        //materials can be updated, update them all
+    }
+
+    public bool AddRemoveMaterials(AssetInfo[] inputAssets)
+    {
+        float[] tochange = new float[inputAssets.Length];
+        for (int i = 0; i < inputAssets.Length; i++)
+        {
+            float amt = inputAssets[i].baseAmt + Random.Range(0f, inputAssets[i].randomExtra);
+            if (assets[(int)inputAssets[i].asset] + amt > 0)
+            {
+                tochange[i] = amt;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        //materials can be updated, update them all
+        for(int i = 0; i < inputAssets.Length; i++)
+        {
+            assets[(int)inputAssets[i].asset] += tochange[i];
+        }
+        return true;
+    }
+
     public bool AddRemoveCoins(float amount, bool force = false)
     {
         if (force)
