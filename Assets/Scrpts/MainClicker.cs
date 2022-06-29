@@ -72,11 +72,28 @@ public class MainClicker : MonoBehaviour
                     default: break;
                 }
             }
-            if (hitRay.collider == null || hitRay.collider.tag != "Action")
+            if (hitRay.collider == null)
             {
                 tooltip.Active(false);
                 hoveringAction = null;
             }
         }
+    }
+
+    public void StartHoveringActionFromPhone(GameObject actionObj, string text, Vector3 hitPoint)
+    {
+        hoveringAction = actionObj;
+        tooltip.Active(true);
+        tooltip.SetText(text);
+        tooltip.transform.position = hitPoint;
+    }
+    public void HoveringActionMoveTooltip(Vector3 hitPoint)
+    {
+        tooltip.transform.position = hitPoint;
+    }
+    public void StopHoveringActionFromPhone()
+    {
+        tooltip.Active(false);
+        hoveringAction = null;
     }
 }

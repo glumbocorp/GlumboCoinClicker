@@ -10,12 +10,17 @@ public class PhoneClick : MonoBehaviour
     [SerializeField] Transform displayTopRight;
     [SerializeField] Transform displayBotLeft;
     [SerializeField] float scrollSpeed;
+    Main main;
     GameObject hovering;
     public GameObject currentHover => hovering;
     PhoneElement hoveringElement;
     Vector2 relativeOffset = Vector2.zero;
     Vector2 lastDisplayPos = Vector2.zero;
     bool holding = false;
+    private void Start()
+    {
+        main = Main.staticMain;
+    }
     public void MouseStartDown(Vector3 worldHit)
     {
         if (hovering != null)
@@ -73,6 +78,15 @@ public class PhoneClick : MonoBehaviour
                 hovering = hit.collider.gameObject;
                 hoveringElement = hovering.GetComponent<PhoneElement>();
                 hoveringElement.OnHover();
+                Action testAction = hoveringElement.GetComponent<Action>();
+                if (testAction != null)
+                {
+                    main.mainClicker.StartHoveringActionFromPhone(hoveringElement.gameObject, testAction.GetText(), worldHit);
+                }
+                else
+                {
+                    main.mainClicker.StopHoveringActionFromPhone();
+                }
             }
             if(holding){
                 Vector2 thisPos = (Vector2)GetDisplayPos(worldHit);
@@ -83,10 +97,12 @@ public class PhoneClick : MonoBehaviour
             if (hovering != null)
             {
                 hoveringElement.OnDrag(Input.mouseScrollDelta * scrollSpeed * -1f);
+                main.mainClicker.HoveringActionMoveTooltip(worldHit);
             }
         }
         else
         {
+            main.mainClicker.StopHoveringActionFromPhone();
             StopHovering();
             if (holding)
             {

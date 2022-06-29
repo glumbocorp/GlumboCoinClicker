@@ -26,9 +26,11 @@ public class Main : MonoBehaviour
     float glumbocoins = 0;
     [SerializeField] float defaultGenerationTime = 5f;
     float genTime = 0f;
+    public MainClicker mainClicker;
 
     private void Awake()
     {
+        mainClicker = GetComponent<MainClicker>();
         if (staticMain != null)
         {
             Destroy(gameObject);

@@ -7,11 +7,11 @@ public class phoneScroll : PhoneElement
     [SerializeField] Vector2 inputMultiplier;
     Vector2 targetOffset = Vector2.zero;
     [SerializeField] Vector2 currentOffset = Vector2.zero;
-    [SerializeField] Transform imageContainer;
+    [SerializeField] Transform scrollview;
 
     void Start(){
-        targetOffset = imageContainer.transform.position;
-        currentOffset = imageContainer.transform.position;
+        targetOffset = scrollview.transform.position;
+        currentOffset = scrollview.transform.position;
     }
     public override void OnDrag(Vector2 relativeOffset)
     {
@@ -19,7 +19,7 @@ public class phoneScroll : PhoneElement
     }
 
     void UpdateOffset(){
-        imageContainer.transform.position = new Vector3(currentOffset.x,currentOffset.y,imageContainer.transform.position.z);
+        scrollview.transform.position = new Vector3(currentOffset.x,currentOffset.y, scrollview.transform.position.z);
     }
 
     void Update(){

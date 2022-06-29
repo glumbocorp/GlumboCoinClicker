@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Action : MonoBehaviour
+public class Action : InteractorBase
 {
     //action consumes glumbocoin to either start or continue
 
@@ -25,6 +25,12 @@ public class Action : MonoBehaviour
         rend = GetComponent<Renderer>();
         rend.material.SetFloat("progress", progress);
     }
+
+    public override void Trigger()
+    {
+        StartAction();
+    }
+
     public string GetText()
     {
         return text;
