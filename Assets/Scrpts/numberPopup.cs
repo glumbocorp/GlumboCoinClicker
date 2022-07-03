@@ -53,7 +53,7 @@ public class numberPopup : MonoBehaviour
     {
         if(number >= 0)
         {
-            text.text = "+" + number;
+            text.text = "+" + number.ToString();
             if (hasColor)
             {
                 text.color = Color.green;
@@ -61,6 +61,7 @@ public class numberPopup : MonoBehaviour
         }
         else
         {
+            text.text = number.ToString();
             if (hasColor)
             {
                 text.color = Color.red;

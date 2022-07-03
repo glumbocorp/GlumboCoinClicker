@@ -28,6 +28,7 @@ public class Main : MonoBehaviour
     float genTime = 0f;
     public MainClicker mainClicker;
 
+
     private void Awake()
     {
         mainClicker = GetComponent<MainClicker>();
@@ -61,6 +62,10 @@ public class Main : MonoBehaviour
         {
             assets[i] = 0;
         }
+        if (staticMain == null)
+        {
+            staticMain = this;
+        }
     }
 
     public bool AddRemoveMaterialsAndAssets(AssetInfo[] inputAssets, float amount)
@@ -69,7 +74,7 @@ public class Main : MonoBehaviour
         for (int i = 0; i < inputAssets.Length; i++)
         {
             float amt = inputAssets[i].baseAmt + Random.Range(0f, inputAssets[i].randomExtra);
-            if (assets[(int)inputAssets[i].asset] + amt > 0)
+            if (assets[(int)inputAssets[i].asset] + amt >= 0)
             {
                 tochange[i] = amt;
             }
@@ -78,7 +83,7 @@ public class Main : MonoBehaviour
                 return false;
             }
         }
-        if (glumbocoins + amount >= 0)
+        if (glumbocoins + amount >= 0 || amount >= 0)
         {
             glumbocoins += amount;
             UpdateAmt();
@@ -98,7 +103,7 @@ public class Main : MonoBehaviour
         for (int i = 0; i < inputAssets.Length; i++)
         {
             float amt = inputAssets[i].baseAmt + Random.Range(0f, inputAssets[i].randomExtra);
-            if (assets[(int)inputAssets[i].asset] + amt > 0)
+            if (assets[(int)inputAssets[i].asset] + amt >= 0)
             {
                 tochange[i] = amt;
             }
@@ -120,10 +125,11 @@ public class Main : MonoBehaviour
         if (force)
         {
             glumbocoins += amount;
+            UpdateAmt();
             return true;
         }
 
-        if(glumbocoins + amount >= 0)
+        if(glumbocoins + amount >= 0 || amount >= 0)
         {
             glumbocoins += amount;
             UpdateAmt();
@@ -138,7 +144,7 @@ public class Main : MonoBehaviour
         {
             TotalJRusers = 0f;
         }
-        if (activeJRusers < TotalJRusers)
+        if (activeJRusers > TotalJRusers)
         {
             activeJRusers = TotalJRusers;
         }
