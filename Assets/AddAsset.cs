@@ -8,6 +8,6 @@ public class AddAsset : InteractorBase
     [SerializeField] AssetInfo[] toAddRemove;
     public override void Trigger()
     {
-        Main.staticMain.AddRemoveMaterials(toAddRemove);
+        Main.staticMain.AddRemoveAssets(toAddRemove);
     }
 }

@@ -7,7 +7,6 @@ public class ToggleRenderButton : RenderButton
     [SerializeField] Sprite defaultSpriteToggled;
     [SerializeField] Sprite hoverSpriteToggled;
     [SerializeField] Sprite pressedSpriteToggled;
-    [SerializeField] Sprite releasedSpriteToggled;
     [SerializeField] InteractorBase toggleInteractor;
     [SerializeField] Color toggleDefaultColor = Color.white;
     [SerializeField] Color toggleHoverColor = Color.white;
@@ -30,14 +29,22 @@ public class ToggleRenderButton : RenderButton
                     thisRend.sprite = hoverSpriteToggled; SetColor(toggleHoverColor); break;
                 case buttonStates.PRESSED:
                     thisRend.sprite = pressedSpriteToggled; SetColor(togglePressedColor); break;
-                case buttonStates.RELEASED:
-                    thisRend.sprite = releasedSpriteToggled; SetColor(toggleReleasedColor); break;
                 case buttonStates.DEFAULT:
                 default:
                     thisRend.sprite = defaultSpriteToggled; SetColor(toggleDefaultColor); break;
             }
         }
         
+    }
+
+    public void TogglePress()
+    {
+        if (currentTime == 0f)
+        {
+            StartCooldown();
+            if (forceUpdate) { ForceUpdate(); }
+            toggleInteractor.Trigger();
+        }
     }
 
     public override void Press()
@@ -49,7 +56,7 @@ public class ToggleRenderButton : RenderButton
         }
         else
         {
-            toggleInteractor.Trigger();
+            TogglePress();
         }
         
     }

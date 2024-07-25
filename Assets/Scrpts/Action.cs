@@ -6,8 +6,10 @@ public class Action : InteractorBase
 {
     //action consumes glumbocoin to either start or continue
 
-    [SerializeField] float costToStart;
-    [SerializeField] float costPerSecond;
+    [SerializeField] float GC_costToStart;
+    [SerializeField] float USD_costToStart;
+    [SerializeField] float GC_costPerSecond;
+    [SerializeField] float USD_costPerSecond;
     [SerializeField] AssetInfo[] assetStartCost;
     [SerializeField] AssetInfo[] assetCostPerSecond;
     [SerializeField] Main main;
@@ -40,12 +42,7 @@ public class Action : InteractorBase
         if (running)
         {
             AssetInfo[] perSec = assetCostPerSecond;
-            for(int i = 0; i < perSec.Length; i++)
-            {
-                perSec[i].baseAmt *= Time.deltaTime;
-                perSec[i].randomExtra *= Time.deltaTime;
-            }
-            if (main.AddRemoveMaterialsAndAssets(perSec, costPerSecond * Time.deltaTime)) {
+            if (main.AddRemoveAssets(perSec, true)) {
                 AdvanceBar();
                 rend.material.SetFloat("progress", progress);
             }
@@ -75,7 +72,7 @@ public class Action : InteractorBase
 
     public void StartAction()
     {
-        if (main.AddRemoveMaterialsAndAssets(assetStartCost, costToStart)&&!running)
+        if (main.AddRemoveAssets(assetStartCost)&&!running)
         {
             running = true;
             progress = 0f;

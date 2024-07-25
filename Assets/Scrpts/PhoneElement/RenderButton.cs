@@ -12,18 +12,16 @@ public class RenderButton : PhoneElement
         DEFAULT
     };
     protected SpriteRenderer thisRend;
-    [SerializeField] Sprite defaultSprite;
-    [SerializeField] Sprite hoverSprite;
-    [SerializeField] Sprite pressedSprite;
-    [SerializeField] Sprite releasedSprite;
-    [SerializeField] Color defaultColor = Color.white;
-    [SerializeField] Color hoverColor = Color.white;
-    [SerializeField] Color pressedColor = Color.white;
-    [SerializeField] Color releasedColor = Color.white;
-    [SerializeField] InteractorBase interactor;
-    [SerializeField] float cooldownTime;//time it takes to reset to default after released
-    [SerializeField] bool forceUpdate = false;
-    [SerializeField] bool noSprite = false;
+    [SerializeField] protected Sprite defaultSprite;
+    [SerializeField] protected Sprite hoverSprite;
+    [SerializeField] protected Sprite pressedSprite;
+    [SerializeField] protected Color defaultColor = Color.white;
+    [SerializeField] protected Color hoverColor = Color.white;
+    [SerializeField] protected Color pressedColor = Color.white;
+    [SerializeField] protected InteractorBase interactor;
+    [SerializeField] protected float cooldownTime;//time it takes to reset to default after released
+    [SerializeField] protected bool forceUpdate = false;
+    [SerializeField] protected bool noSprite = false;
     PhoneClick phoneclick;
     Color currentColor;
     Color targetColor;
@@ -46,10 +44,6 @@ public class RenderButton : PhoneElement
             if (pressedSprite == null)
             {
                 pressedSprite = thisRend.sprite;
-            }
-            if (releasedSprite == null)
-            {
-                releasedSprite = thisRend.sprite;
             }
         }
     }
@@ -162,8 +156,6 @@ public class RenderButton : PhoneElement
                 thisRend.sprite = hoverSprite; SetColor(hoverColor); break;
             case buttonStates.PRESSED:
                 thisRend.sprite = pressedSprite; SetColor(pressedColor); break;
-            case buttonStates.RELEASED:
-                thisRend.sprite = releasedSprite; SetColor(releasedColor); break;
             case buttonStates.DEFAULT:
             default:
                 thisRend.sprite = defaultSprite; SetColor(defaultColor); break;

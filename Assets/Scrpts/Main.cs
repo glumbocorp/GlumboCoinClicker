@@ -8,6 +8,7 @@ public class Main : MonoBehaviour
     [SerializeField] TMPro.TextMeshProUGUI coinAmt;
     [SerializeField] TMPro.TextMeshProUGUI coinAmtR;
     [SerializeField] TMPro.TextMeshProUGUI coinAmtB;
+    [SerializeField] TMPro.TextMeshProUGUI fundsAmt;
     [SerializeField] TMPro.TextMeshProUGUI JRinfo;
     [SerializeField] float minUpdateTime;
     [SerializeField] float maxUpdateTime;
@@ -18,16 +19,19 @@ public class Main : MonoBehaviour
     [SerializeField] GraphRender graph;
     [SerializeField] GameObject numberPopup;
     [SerializeField] Transform passiveGenerationTarget;
-    bool generationEnabled = false;
+    [SerializeField] GameObject JRAppIcon;
+    bool generationEnabled = false; //if the jeremy renner app is installed
     float currentUpdateTime = 0f;
     float currentJRusersPercent = 0f;
     float TotalJRusers = 500;
     float activeJRusers = 1;
-    float glumbocoins = 0;
+    //float glumbocoins = 0;
+    //float funds = 0f;
     [SerializeField] float defaultGenerationTime = 5f;
     float genTime = 0f;
     public MainClicker mainClicker;
 
+    List<SparePhone> sparePhones; //artifically adds to number of JR app users, can have it be downloaded or not, can be used to store negative glumbocoin
 
     private void Awake()
     {
@@ -46,17 +50,24 @@ public class Main : MonoBehaviour
     {
         good,
         evil,
-        //other stuff, idk
+        GC,
+        USD
     }
     float[] assets;
     public float Coins => glumbocoins;
+    float glumbocoins => assets[(int)Assets.GC];
+    float funds => assets[(int)Assets.USD];
     public void SetJRApp(bool enabled)
     {
         generationEnabled = enabled;
+        JRAppIcon.SetActive(enabled);
     }
     private void Start()
     {
+        SetJRApp(false);
         UpdateAmt();
+        UpdateFunds();
+        sparePhones = new List<SparePhone>();
         assets = new float[System.Enum.GetNames(typeof(Assets)).Length];
         for(int i = 0; i < assets.Length; i++)
         {
@@ -68,41 +79,17 @@ public class Main : MonoBehaviour
         }
     }
 
-    public bool AddRemoveMaterialsAndAssets(AssetInfo[] inputAssets, float amount)
-    {
-        float[] tochange = new float[inputAssets.Length];
-        for (int i = 0; i < inputAssets.Length; i++)
-        {
-            float amt = inputAssets[i].baseAmt + Random.Range(0f, inputAssets[i].randomExtra);
-            if (assets[(int)inputAssets[i].asset] + amt >= 0)
-            {
-                tochange[i] = amt;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        if (glumbocoins + amount >= 0 || amount >= 0)
-        {
-            glumbocoins += amount;
-            UpdateAmt();
-            for (int i = 0; i < inputAssets.Length; i++)
-            {
-                assets[(int)inputAssets[i].asset] += tochange[i];
-            }
-            return true;
-        }
-        return false;
-        //materials can be updated, update them all
-    }
 
-    public bool AddRemoveMaterials(AssetInfo[] inputAssets)
+    public bool AddRemoveAssets(AssetInfo[] inputAssets, bool multiplyByTimeDetla = false)
     {
         float[] tochange = new float[inputAssets.Length];
         for (int i = 0; i < inputAssets.Length; i++)
         {
             float amt = inputAssets[i].baseAmt + Random.Range(0f, inputAssets[i].randomExtra);
+            if (multiplyByTimeDetla)
+            {
+                amt *= Time.deltaTime;
+            }
             if (assets[(int)inputAssets[i].asset] + amt >= 0)
             {
                 tochange[i] = amt;
@@ -112,30 +99,31 @@ public class Main : MonoBehaviour
                 return false;
             }
         }
-        //materials can be updated, update them all
-        for(int i = 0; i < inputAssets.Length; i++)
+        for (int i = 0; i < inputAssets.Length; i++)
         {
             assets[(int)inputAssets[i].asset] += tochange[i];
         }
         return true;
+        //materials can be updated, update them all
     }
 
-    public bool AddRemoveCoins(float amount, bool force = false)
+    public void ForceAddRemoveAsset(AssetInfo info)
     {
-        if (force)
-        {
-            glumbocoins += amount;
-            UpdateAmt();
-            return true;
-        }
+        assets[(int)info.asset] += info.baseAmt + Random.value * info.randomExtra;
+    }
 
-        if(glumbocoins + amount >= 0 || amount >= 0)
+    public void ForceAddRemoveAsset(AssetInfo[] infos)
+    {
+        for(int i = 0; i < infos.Length; i++)
         {
-            glumbocoins += amount;
-            UpdateAmt();
-            return true;
+            ForceAddRemoveAsset(infos[i]);
         }
-        return false;
+    }
+
+    public void AddRemoveCoins(float amount)
+    {
+        ForceAddRemoveAsset(new AssetInfo(amount, 0f, Assets.GC));
+        UpdateAmt();
     }
     public void changeTotalUsers(float relativeUsers)
     {
@@ -151,10 +139,17 @@ public class Main : MonoBehaviour
     }
 
     public void UpdateAmt()
+    { 
+        string amt = string.Format("{0:0.00}", glumbocoins);
+        coinAmt.text = "Glumbocoins: " + amt;
+        coinAmtR.text = "Glumbocoins: " + amt;
+        coinAmtB.text = "Glumbocoins: " + amt;
+    }
+
+    public void UpdateFunds()
     {
-        coinAmt.text = "Glumbocoins: " + glumbocoins.ToString();
-        coinAmtR.text = "Glumbocoins: " + glumbocoins.ToString();
-        coinAmtB.text = "Glumbocoins: " + glumbocoins.ToString();
+        string amt = string.Format("{0:0.00}", funds);
+        fundsAmt.text = "Funds: $" + amt;
     }
 
     void GenerateGlumbo()
@@ -166,13 +161,13 @@ public class Main : MonoBehaviour
             {
                 coinsGenerated = Random.Range(0f, (TotalJRusers - activeJRusers)*.1f);
                 coinsGenerated = Mathf.Round(coinsGenerated * 10f) / 10f;
-                AddRemoveCoins(coinsGenerated, true);
+                AddRemoveCoins(coinsGenerated);
             }
             else//lose
             {
                 coinsGenerated = -1f*Random.Range(0f, activeJRusers*.1f);
                 coinsGenerated = Mathf.Round(coinsGenerated * 10f) / 10f;
-                AddRemoveCoins(coinsGenerated, true);
+                AddRemoveCoins(coinsGenerated);
             }
             
             Instantiate(numberPopup, passiveGenerationTarget.position, Quaternion.identity).GetComponent<numberPopup>().SetNumValue(coinsGenerated);
